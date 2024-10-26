@@ -72,3 +72,4 @@ class Human:
     def chill(self):
         self.gladness += 10
         self.home.mass +=5
+
