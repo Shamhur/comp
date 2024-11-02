@@ -226,7 +226,7 @@ pet_list = {
     "Bird": {"hunger": 30, "energy": 70},
 }
 
-persona = Human(name='Vasya')
+persona = Human(name='Matwey')
 
 for day in range(1,8):
     if persona.live(day) == False:
