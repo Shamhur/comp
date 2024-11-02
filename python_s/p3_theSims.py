@@ -1,7 +1,7 @@
 import random
 
 class Human:
-    def __init__(self, name='Human', job=None, car=None, home=None):
+    def __init__(self, name='Human', job=None, car=None, home=None,pet=None):
         self.name = name
         self.money = 100
         self.gladness = 50
@@ -9,6 +9,7 @@ class Human:
         self.job = job
         self.car = car
         self.home = home
+        self.pet = pet
 
     def get_home(self):
         self.home = House()
@@ -23,6 +24,10 @@ class Human:
             self.to_repair()
             return
         self.job = Job(job_list)
+
+    def get_pet(self):
+        self.pet = Pet(pet_list)
+
 
     def eat(self):
         if self.home.food <=0:
@@ -81,6 +86,11 @@ class Human:
         self.car.strength += 100
         self.money -= 50
 
+    def feed_pet(self):
+        self.hunger += 10
+        self.energy += 20
+        self.money -= 20
+
     def day_indexes(self, day):
         day = f" Today the {day} of {self.name}'s life"
         print(f"{day:=^50}","\n")
@@ -97,6 +107,11 @@ class Human:
         print(f"{car_indexes:=^50}")
         print(f"Fuel - {self.car.fuel}")
         print(f"Strength - {self.car.strength}")
+        if self.pet:
+            pet_indexes = f"{self.pet.name}'s indexes"
+            print(f"{pet_indexes:=^50}")
+            print(f"Hunger - {self.pet.hunger}")
+            print(f"Energy - {self.pet.energy}")
 
     def is_alive(self):
         if self.gladness < 0:
@@ -121,6 +136,9 @@ class Human:
         if self.job is None:
             self.get_job()
             print(f"I don't have a job, going to get a job {self.job.job} with salary {self.job.salary}")
+        if self.pet is None:
+           self.get_pet()
+           print(f"I got a pet named {self.pet.name}")
         self.day_indexes(day)
         dice = random.randint(1,4)
         if self.satiety < 20:
@@ -181,6 +199,12 @@ class Job:
         self.salary = job_list[self.job]["salary"]
         self.gladness_less = job_list[self.job]["gladness_less"]
 
+class Pet:
+    def __init__(self, pet_list):
+        self.name = random.choice(list(pet_list))
+        self.hunger = pet_list[self.name]["hunger"]
+        self.energy = pet_list[self.name]["energy"]
+
 
 job_list = {
     "Java developer": {"salary": 50,"gladness_less": 10},
@@ -194,6 +218,12 @@ brands_of_car = {
     "Lada":{"fuel": 50, "strength": 40, "consumption": 10},
     "Volvo":{"fuel": 70, "strength": 150, "consumption": 8},
     "Ferrari":{"fuel": 80, "strength": 120, "consumption": 14},
+}
+
+pet_list = {
+    "Dog": {"hunger": 50, "energy": 50},
+    "Cat": {"hunger": 40, "energy": 60},
+    "Bird": {"hunger": 30, "energy": 70},
 }
 
 persona = Human(name='Vasya')
