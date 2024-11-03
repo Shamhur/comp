@@ -5,4 +5,4 @@ try:
 except:
     print("We have error")
 
-print("End program")
+print("End programm")
