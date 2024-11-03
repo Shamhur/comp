@@ -6,6 +6,8 @@ class Human:
         self.money = 100
         self.gladness = 50
         self.satiety = 50
+        self.hunger = 100
+        self.energy = 100
         self.job = job
         self.car = car
         self.home = home
@@ -49,6 +51,8 @@ class Human:
         self.money += self.job.salary
         self.gladness -= self.job.gladness_less
         self.satiety -= 4
+        self.hunger -= 10
+        self.energy -= 5
 
     def shopping(self, manage):
         if self.car.drive():
@@ -72,11 +76,17 @@ class Human:
             self.gladness += 10
             self.satiety += 2
             self.money -= 15
+            self.energy += 5
+            self.hunger +=5
+
 
 
     def chill(self):
         self.gladness += 10
         self.home.mess +=5
+        self.hunger -= 10
+        self.energy -= 10
+
 
     def clean_home(self):
         self.gladness -= 5
@@ -87,8 +97,8 @@ class Human:
         self.money -= 50
 
     def feed_pet(self):
-        self.hunger += 10
-        self.energy += 20
+        self.hunger += 5
+        self.energy += 10
         self.money -= 20
 
     def day_indexes(self, day):
@@ -107,11 +117,10 @@ class Human:
         print(f"{car_indexes:=^50}")
         print(f"Fuel - {self.car.fuel}")
         print(f"Strength - {self.car.strength}")
-        if self.pet:
-            pet_indexes = f"{self.pet.name}'s indexes"
-            print(f"{pet_indexes:=^50}")
-            print(f"Hunger - {self.pet.hunger}")
-            print(f"Energy - {self.pet.energy}")
+        pet_indexes = f"{self.pet.name}'s indexes"
+        print(f"{pet_indexes:=^50}")
+        print(f"Hunger - {self.hunger}")
+        print(f"Energy - {self.energy}")
 
     def is_alive(self):
         if self.gladness < 0:
@@ -226,7 +235,7 @@ pet_list = {
     "Bird": {"hunger": 30, "energy": 70},
 }
 
-persona = Human(name='Matwey')
+persona = Human(name='Vasya')
 
 for day in range(1,8):
     if persona.live(day) == False:
